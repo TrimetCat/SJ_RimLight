@@ -100,6 +100,33 @@ sampler MaskMapSmp = sampler_state
     AddressV = CLAMP;
 };
 
+// 当前画面的描画读取
+texture ScnMap : RENDERCOLORTARGET <
+                 bool AntiAlias = false;
+float2 ViewportRatio = {1.0, 1.0};
+int MipLevels = 1;
+string Format = "A8R8G8B8";
+> ;
+sampler ScnSamp = sampler_state
+{
+    texture = <ScnMap>;
+    MinFilter = POINT;
+    MagFilter = POINT;
+    MipFilter = NONE;
+    AddressU = CLAMP;
+    AddressV = CLAMP;
+};
+texture RimLightMap : RENDERCOLORTARGET;
+sampler RimLightSamp = sampler_state
+{
+    texture = <RimLightMap>;
+    MinFilter = LINEAR;
+    MagFilter = LINEAR;
+    MipFilter = NONE;
+    AddressU = CLAMP;
+    AddressV = CLAMP;
+};
+
 // 深度缓存
 texture DepthBuffer : RENDERDEPTHSTENCILTARGET <
                       float2 ViewPortRatio = {1.0, 1.0};
