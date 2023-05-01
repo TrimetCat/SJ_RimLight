@@ -58,12 +58,12 @@ string ScriptOrder = "postprocess";
 // 边缘光信息图
 texture SJ_RimDepth : OFFSCREENRENDERTARGET <
                       string Description = "the Depth information and normal information for SJ_RimLight.x";
-float2 ViewPortRatio = {3.0f, 3.0f};
+float2 ViewPortRatio = {1.0f, 1.0f};
 float4 ClearColor = {0.5, 0.5, 1, 1};
 float ClearDepth = 1.0f;
 string Format = "A16B16G16R16F";
 int MipLevels = 1;
-bool AntiAlias = false;
+bool AntiAlias = true;
 string DefaultEffect =
     "self = hide;"
     "* = hide;";
@@ -80,12 +80,12 @@ sampler DepMapSmp = sampler_state
 // 遮罩
 texture SJ_RimMask : OFFSCREENRENDERTARGET <
                      string Description = "the Mask information for SJ_RimLight.x";
-float2 ViewPortRatio = {3.0f, 3.0f};
+float2 ViewPortRatio = {1.0f, 1.0f};
 float4 ClearColor = {0, 0, 0, 1};
 float ClearDepth = 1.0f;
 string Format = "D3DFMT_A8R8G8B8";
-int MipLevels = 0;
-bool AntiAlias = false;
+int MipLevels = 1;
+bool AntiAlias = true;
 string DefaultEffect =
     "self = hide;"
     "* = hide;";
@@ -93,33 +93,6 @@ string DefaultEffect =
 sampler MaskMapSmp = sampler_state
 {
     texture = <SJ_RimMask>;
-    MinFilter = LINEAR;
-    MagFilter = LINEAR;
-    MipFilter = None;
-    AddressU = CLAMP;
-    AddressV = CLAMP;
-};
-
-// 当前画面的描画读取
-texture ScnMap : RENDERCOLORTARGET <
-                 bool AntiAlias = false;
-float2 ViewportRatio = {1.0, 1.0};
-int MipLevels = 1;
-string Format = "A8R8G8B8";
-> ;
-sampler ScnSamp = sampler_state
-{
-    texture = <ScnMap>;
-    MinFilter = POINT;
-    MagFilter = POINT;
-    MipFilter = NONE;
-    AddressU = CLAMP;
-    AddressV = CLAMP;
-};
-texture RimLightMap : RENDERCOLORTARGET;
-sampler RimLightSamp = sampler_state
-{
-    texture = <RimLightMap>;
     MinFilter = LINEAR;
     MagFilter = LINEAR;
     MipFilter = NONE;
